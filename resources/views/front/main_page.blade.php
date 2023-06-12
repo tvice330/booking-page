@@ -115,87 +115,62 @@
         });
     </script>
     <script type="text/javascript">
-        $('#arrival_date').datepicker({
-            format: 'dd-mm-yyyy',
-            autoclose: true,
-            startDate: 'today'
-        }).on('change', function () {
+        $(function()
+        {
+            let availableDates = {!! json_encode($booking_dates) !!};
+            let replaceEnableDays = "[\"" + availableDates.toString().replace(/,/g, '\",\"') + "\"]";
 
-            let startVal =  $('#arrival_date').val();
+            $('.arrival_date').on('change', function () {
+                if ($(this).val().length > 0) {
+                    $('.departure_date').removeAttr('disabled');
+                } else {
+                    $('.departure_date').val('');
+                    $('.departure_date').attr('disabled','disabled');
+                }
+            });
+            $('#arrival_date').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                startDate: 'today',
+                beforeShowDay:
+                    function(dt)
+                    {
+                        return [available(dt), "" ];
+                    }
+                , changeMonth: true, changeYear: false,
+            }).on('change', function () {
 
-            $('#departure_date').data('datepicker').setStartDate(startVal);
-        });
+                let startVal =  $('#arrival_date').val();
 
-        $('#departure_date').datepicker({
-            format: 'dd-mm-yyyy',
-            autoclose: true,
-            startDate: '+1d'
-        }).on('change', function () {
+                $('#departure_date').data('datepicker').setStartDate(startVal);
+            });
 
-            let endVal =  $('#departure_date').val();
+            $('#departure_date').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                startDate: '+1d',
+                beforeShowDay:
+                    function(dt)
+                    {
+                        return [available(dt), "" ];
+                    }
+                , changeMonth: true, changeYear: false,
+            }).on('change', function () {
 
-            $('#arrival_date').data('datepicker').setEndDate(endVal);
+                let endVal =  $('#departure_date').val();
+
+                $('#arrival_date').data('datepicker').setEndDate(endVal);
+            });
+
+            function available(date) {
+                dmy = moment().format('D') + "-" + (moment().format('MM')) + "-" + moment().format('YYYY');
+
+                if ($.inArray(dmy, replaceEnableDays) != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         });
     </script>
-{{--    <script type="text/javascript">--}}
-{{--        $(document).ready(function($){--}}
-{{--            $.ajaxSetup({--}}
-{{--                headers: {--}}
-{{--                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-{{--                }--}}
-{{--            });--}}
-{{--            $('#receipt-form').submit(function(e) {--}}
-{{--                let receiptInstruction = {};--}}
-{{--                let InstructionData = $('#all_instruction_row').find('.instruction_row');--}}
-
-{{--                let r = 0;--}}
-{{--                InstructionData.each( function() {--}}
-{{--                    receiptInstruction[r++] = {step: $(this).find(".step").val(),step_description: $(this).find(".step_description").val(),step_picture_url: $(this).find(".step_picture_url").val(),step_picture_blur: $(this).find(".step_picture_blur").val()};--}}
-{{--                });--}}
-
-{{--                let ingredients = {};--}}
-{{--                let ingredientsData = $('#optional_ingredients').find('.ingredients-row');--}}
-
-{{--                let i = 0;--}}
-{{--                ingredientsData.each( function() {--}}
-{{--                    ingredients[i++] = {ingredient_id: $(this).find(".ingredient_id").val(),weight: $(this).find(".weight").val(),optional: $(this).find(".optional").prop('checked') ? 1:0};--}}
-{{--                });--}}
-
-{{--                $('#button-create').attr('disabled', 'disabled').html('Processed');--}}
-{{--                e.preventDefault();--}}
-{{--                let formData = new FormData(this);--}}
-{{--                formData.append('receipt_instruction',JSON.stringify(receiptInstruction));--}}
-{{--                formData.append('ingredients',JSON.stringify(ingredients));--}}
-{{--                $.ajax({--}}
-{{--                    type:'POST',--}}
-{{--                    url: '{{ route('receipts.store') }}',--}}
-{{--                    data: formData,--}}
-{{--                    contentType: false,--}}
-{{--                    processData: false,--}}
-{{--                    success: (response) => {--}}
-{{--                        $('#button-create').removeAttr('disabled', 'disabled').html('Create');--}}
-{{--                        let container = document.getElementsByClassName('massage')[0];--}}
-{{--                        container.classList.add("alert");--}}
-{{--                        container.classList.add("alert-primary");--}}
-{{--                        container.classList.add("outline");--}}
-{{--                        window.scrollTo(0, 0);--}}
-{{--                        while (container.firstChild) {--}}
-{{--                            container.firstChild.remove();--}}
-{{--                        }--}}
-{{--                        if (response.success){--}}
-{{--                            container.innerHTML = container.innerHTML + '<div>' + response.success + '</div>';--}}
-{{--                            setTimeout(function(){ window.location.href = '{{ route('receipts.index') }}'; }, 2000);--}}
-{{--                        }--}}
-{{--                        if (response.error) {--}}
-{{--                            $.each(response, function (index, jsonObject) {--}}
-{{--                                $.each(jsonObject, function (key, val) {--}}
-{{--                                    container.innerHTML = container.innerHTML + '<li>' + val + '</li>';--}}
-{{--                                });--}}
-{{--                            });--}}
-{{--                        }--}}
-{{--                    },--}}
-{{--                });--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
 @endsection
