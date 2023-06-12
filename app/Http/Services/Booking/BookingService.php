@@ -82,6 +82,7 @@ class BookingService
         $booking_dates = BookingRow::query()
             ->select('arrival_date','departure_date')
             ->whereDate('arrival_date','>=', Carbon::now()->format('Y-m-d'))
+            ->orWhereDate('departure_date','>=', Carbon::now()->format('Y-m-d'))
             ->orderBy('arrival_date','ASC')
             ->get();
 
