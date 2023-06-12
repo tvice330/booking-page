@@ -89,7 +89,7 @@ class BookingService
             $filled_all_booking_dates = array_merge($filled_all_booking_dates, $this->fillDepartureDays($dates));
         }
 
-        return response()->json(['bookingDates' => $filled_all_booking_dates]);
+        return $this->fillAvailableDates(Carbon::now()->format('Y-m-d'),Carbon::now()->endOfYear()->format('Y-m-d') ,$filled_all_booking_dates);
     }
 
     public function setBookingRow($request) {
@@ -156,6 +156,29 @@ class BookingService
         }
 
         return $filled_dates;
+    }
+
+    private function fillAvailableDates(string $start_date,string $endDates,array $filled_dates)
+    {
+        $available_dates = [];
+        $filled_dates = array_values($filled_dates);
+        $begin_date = Carbon::parse($start_date);
+        $end_date = Carbon::parse($endDates);
+
+        if (Carbon::parse($begin_date)->diffInDays($end_date) > 0) {
+            $interval = new CarbonInterval('P1D');
+            $dateRange = new CarbonPeriod($begin_date, $interval, $end_date);
+
+            foreach ($dateRange as $date)
+            {
+                if (!in_array($date->format('Y-m-d'),$filled_dates)){
+                $available_dates[] = $date->format('Y-m-d');
+                }
+
+            }
+        }
+
+        return $available_dates;
     }
 
     private function getStatusId(bool $success)

@@ -28,17 +28,9 @@ class BookingController extends Controller
     public function getHomePage()
     {
         $bookings_info = $this->bookingService->getBookingInfo();
+        $booking_dates = $this->bookingService->getBookingDates();
 
-        return view('front.main_page',compact('bookings_info'));
-    }
-
-    /**
-     * @param Request $request
-     * @return null
-     */
-    public function getBookingDates()
-    {
-        return $this->bookingService->getBookingDates();
+        return view('front.main_page',compact('bookings_info','booking_dates'));
     }
 
     /**
