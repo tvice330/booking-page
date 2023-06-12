@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Kiev',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'uk',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,6 +120,10 @@ return [
     */
 
     'key' => env('APP_KEY'),
+
+    'first_number' => env('FIRST_NUMBER'),
+    'second_number' => env('SECOND_NUMBER'),
+    'address' => env('ADDRESS'),
 
     'cipher' => 'AES-256-CBC',
 

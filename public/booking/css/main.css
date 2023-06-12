@@ -1,0 +1,246 @@
+body {
+    width:  auto;
+    height: auto;
+}
+.main-panel {
+    font-family: 'Avenir Next Cyr', sans-serif;
+}
+header {
+    background: #E5E5E5;
+    min-height: 100px;
+}
+
+footer {
+    background: #293C39;
+    color: #FFFFFF;
+    height: 200px;
+}
+
+a {
+    text-decoration: none;
+}
+.header_main-block {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: row;
+    color: #AE8B70;
+    justify-content: space-between;
+}
+.header_phone {
+    color: #293C39;
+}
+.header_phone a:hover {
+    color: #293C39;
+}
+.content {
+    min-height: 500px;
+    background: #E5E5E5;
+}
+.card {
+    background: #E5E5E5;
+}
+.header_end {
+    border: 1px solid #9DB1B0;
+}
+.form-horizontal {
+    vertical-align: center;
+    align-items: center;
+}
+.input-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px 10px;
+}
+.center-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px 10px;
+}
+.admin_center-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 20px 10px;
+}
+.input-block_item {
+    margin: 10px 20px;
+    max-width: 280px;
+}
+.input-block_item label{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: uppercase;
+    color: #293C39;
+}
+.input-block_item input{
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #293C39;
+}
+.input-block_item input:focus {
+    color: #293C39;
+    background: transparent;
+    border-bottom: 1px solid #293C39;
+    outline: 0;
+    box-shadow: none;
+}
+
+.footer_main-block {
+    margin: 10px 0 30px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center
+}
+.contact-info {
+    font-style: normal;
+    font-weight: 450;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.contact-info a {
+    margin: 5px 0;
+    color: #FFFFFF;
+}
+.contact-info p {
+    margin: 5px 0;
+}
+.header_btn {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    border: 1px solid #AE8B70;
+    border-radius: 10000px;
+    padding: 15px 37px;
+    color: #AE8B70;
+    min-width: 200px;
+    height: 50px;
+}
+.header_btn a {
+    color: #AE8B70!important;
+}
+.header_btn:hover {
+    color: #AE8B70;
+}
+.header_btn:focus {
+    color: #AE8B70;
+    box-shadow:none;
+}
+.booking_button {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    border: 1px solid #AE8B70;
+    border-radius: 10000px;
+    background: #AE8B70;
+    padding: 15px 37px;
+    color: #FFFFFF;
+    min-width: 200px;
+    height: 50px;
+}
+.booking_button:hover {
+    color: #FFFFFF;
+}
+.booking_button:focus {
+    color: #AE8B70;
+    box-shadow:none;
+}
+.accept-btn {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    border: 1px solid #AE8B70;
+    border-radius: 10000px;
+    background: #AE8B70;
+    padding: 5px 20px;
+    color: #FFFFFF;
+    margin: 0 20px;
+}
+.accept-btn:hover {
+    color: #FFFFFF;
+}
+.accept-btn:focus {
+    color: #AE8B70;
+    box-shadow:none;
+}
+.actions-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.footer_btn {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    border: 1px solid #FFFFFF;
+    border-radius: 10000px;
+    color: #FFFFFF;
+    padding: 15px 37px;
+}
+.footer_btn:hover {
+    color: #FFFFFF;
+}
+.footer_btn:focus {
+    color: #FFFFFF;
+    box-shadow:none;
+}
+
+.status-success {
+    color: #26B69F;
+    text-transform: uppercase;
+}
+.status-pending {
+    color: #AE8B70;
+    text-transform: uppercase;
+}
+.your_booking-table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Avenir Next Cyr', sans-serif;
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #293C39;
+    margin: 30px 0;
+}
+
+
+.your_booking-table th {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #9DB1B0;
+    padding: 40px 0;
+}
+.your_booking-table td {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #293C39;
+    padding: 40px 0;
+}
+
