@@ -1,0 +1,14 @@
+
+.contact-info {
+
+}
+.footer_main-block {
+
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    background: #293C39;
+    color: #FFFFFF;
+}
