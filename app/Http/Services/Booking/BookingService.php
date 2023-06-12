@@ -31,9 +31,9 @@ class BookingService
                     if (!empty($request->get('search'))) {
                         $query->where(function($instance) use($request){
                             $search = $request->get('search');
-                            $instance->orWhere('bocking_rows.id', 'LIKE', "%$search%")
-                                ->orWhere('bocking_rows.arrival_date', 'LIKE', "%$search%")
-                                ->orWhere('bocking_rows.departure_date', 'LIKE', "%$search%")
+                            $instance->orWhere('booking_rows.id', 'LIKE', "%$search%")
+                                ->orWhere('booking_rows.arrival_date', 'LIKE', "%$search%")
+                                ->orWhere('booking_rows.departure_date', 'LIKE', "%$search%")
                                 ->orWhere('booking_statuses.status_name', 'LIKE', "%$search%");
                         });
                     }
@@ -119,19 +119,17 @@ class BookingService
     public function acceptBookingRow(BookingRow $bookingRow)
     {
         BookingRow::query()
-            ->where('id','=', $bookingRow)
-            ->update(['status_id' => BookingStatus::query()
-                ->where('status_name','=',$this->getStatusId(true))
-                ->first()->id]);
+            ->where('id','=', $bookingRow->id)
+            ->update(['status_id' => $this->getStatusId(true)]);
 
-        $response = ['success' => 'Запис на бронювання видаленно'];
+        $response = ['success' => 'Запис на бронювання прийнято'];
         return redirect()->back()->with($response);
     }
 
     public function deleteBookingRow(BookingRow $bookingRow)
     {
         BookingRow::query()
-            ->where('id','=', $bookingRow)
+            ->where('id','=', $bookingRow->id)
             ->delete();
 
         $response = ['success' => 'Запис на бронювання видаленно'];

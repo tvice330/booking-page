@@ -23,7 +23,7 @@ Route::prefix('admin')->name('admin.')->group(static function () {
     Route::get('/', [BookingManageController::class, 'index'])->name('index');
     Route::prefix('booking')->name('booking.')->group(static function () {
         Route::get('/accept/{bookingRow}', [BookingManageController::class, 'acceptBookingRow'])->name('accept');
-        Route::delete('/delete/{bookingRow}', [BookingManageController::class, 'destroyBookingRow'])->name('delete');
+        Route::get('/delete/{bookingRow}', [BookingManageController::class, 'destroyBookingRow'])->name('delete');
     });
 });
 
@@ -31,5 +31,5 @@ Route::prefix('booking')->name('booking.')->group(static function () {
     Route::get('/home', [BookingController::class, 'index'])->name('home');
     Route::get('/get-dates', [BookingController::class, 'getBookingDates'])->name('det-dates');
     Route::post('/create/application', [BookingController::class, 'createBookingRow'])->name('create');
-    Route::delete('/delete/{bookingRow}', [BookingController::class, 'destroyBookingRow'])->name('delete');
+    Route::get('/delete/{bookingRow}', [BookingController::class, 'destroyBookingRow'])->name('delete');
 });
