@@ -15,20 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('front.main_page');
-});
+
+Route::get('/', [BookingController::class, 'getHomePage'])->name('/');
 
 
 Route::prefix('admin')->name('admin.')->group(static function () {
     Route::get('/', [BookingManageController::class, 'index'])->name('index');
     Route::prefix('booking')->name('booking.')->group(static function () {
-        Route::post('/accept/{bookingRow}', [BookingManageController::class, 'acceptBookingRow'])->name('accept');
+        Route::get('/accept/{bookingRow}', [BookingManageController::class, 'acceptBookingRow'])->name('accept');
         Route::delete('/delete/{bookingRow}', [BookingManageController::class, 'destroyBookingRow'])->name('delete');
     });
 });
 
 Route::prefix('booking')->name('booking.')->group(static function () {
-    Route::get('/get-date', [BookingController::class, 'index'])->name('index');
+    Route::get('/home', [BookingController::class, 'index'])->name('home');
+    Route::get('/get-dates', [BookingController::class, 'getBookingDates'])->name('det-dates');
     Route::post('/create/application', [BookingController::class, 'createBookingRow'])->name('create');
+    Route::delete('/delete/{bookingRow}', [BookingController::class, 'destroyBookingRow'])->name('delete');
 });

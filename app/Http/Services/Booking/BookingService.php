@@ -65,6 +65,18 @@ class BookingService
         return view('admin.booking.index');
     }
 
+    public function getBookingInfo()
+    {
+        return BookingRow::query()->select(
+            'booking_rows.id',
+            'booking_rows.arrival_date',
+            'booking_rows.departure_date',
+            'booking_statuses.status_name'
+        )
+            ->join('booking_statuses', function ($join) {
+                $join->on('booking_rows.status_id', '=', 'booking_statuses.id');
+            })->orderBy('arrival_date','ASC')->get();
+    }
     public function getBookingDates() {
         $filled_all_booking_dates = [];
         $booking_dates = BookingRow::query()
@@ -89,6 +101,8 @@ class BookingService
 
         $data = $request->safe()->all();
 
+        $data['status_id'] = $this->getStatusId(false);
+
         try {
 
             if (BookingRow::create($data)) {
@@ -102,11 +116,13 @@ class BookingService
         }
     }
 
-    public function acceptBookingRow($request, BookingRow $bookingRow)
+    public function acceptBookingRow(BookingRow $bookingRow)
     {
         BookingRow::query()
             ->where('id','=', $bookingRow)
-            ->update(['status_id' => $request->status]);
+            ->update(['status_id' => BookingStatus::query()
+                ->where('status_name','=',$this->getStatusId(true))
+                ->first()->id]);
 
         $response = ['success' => 'Запис на бронювання видаленно'];
         return redirect()->back()->with($response);
@@ -122,7 +138,7 @@ class BookingService
         return redirect()->back()->with($response);
     }
 
-    public function fillDepartureDays(object $dates)
+    private function fillDepartureDays(object $dates)
     {
         $filled_dates = [];
 
@@ -141,4 +157,12 @@ class BookingService
 
         return $filled_dates;
     }
+
+    private function getStatusId(bool $success)
+    {
+        return BookingStatus::query()
+            ->where('status_name','=',$success === true ? BookingStatus::SUCCESS_STATUS : BookingStatus::PENDING_STATUS)
+            ->first()->id;
+    }
+
 }

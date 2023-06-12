@@ -12,24 +12,25 @@
             @endforeach
         </div>
     @endif
-	<div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                        <div class="table-responsive">
-                            <table width="100%" class="display booking-applications-table">
-                                <thead class=" text-primary">
-                                    <tr>
-                                        <th>дата заїзду, з</th>
-                                        <th>дата виїзду, до</th>
-                                        <th>статус</th>
-                                        <th>прийняти/видалити бронювання</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                        </table>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="admin_center-block">
+                    <div><img src="{{ asset('booking/img/hotel_admin_logo.png') }}"></div>
+                </div>
+                <div class="table-responsive">
+                    <table width="100%" class="display booking-applications-table">
+                        <thead class=" text-primary">
+                        <tr>
+                            <th>дата заїзду, з</th>
+                            <th>дата виїзду, до</th>
+                            <th>статус</th>
+                            <th>прийняти/видалити бронювання</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

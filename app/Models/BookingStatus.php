@@ -17,7 +17,7 @@ class BookingStatus extends Model
     /**
      * @var string
      */
-    public const SUCCESS_STATUS = 'Очікує підтвердження';
+    public const SUCCESS_STATUS = 'Успішно';
 
     /**
      * @var string[]
