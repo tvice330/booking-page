@@ -117,18 +117,15 @@
     <script type="text/javascript">
         $(function()
         {
+            initComponent();
+        });
+        function initComponent()
+        {
             let availableDates = {!! json_encode($booking_dates) !!};
             let replaceEnableDays = "[\"" + availableDates.toString().replace(/,/g, '\",\"') + "\"]";
 
-            $('.arrival_date').on('change', function () {
-                if ($(this).val().length > 0) {
-                    $('.departure_date').removeAttr('disabled');
-                } else {
-                    $('.departure_date').val('');
-                    $('.departure_date').attr('disabled','disabled');
-                }
-            });
-            $('#arrival_date').datepicker({
+
+            let arrivalDate =  $('#arrival_date').datepicker({
                 format: 'dd-mm-yyyy',
                 autoclose: true,
                 startDate: 'today',
@@ -140,12 +137,13 @@
                 , changeMonth: true, changeYear: false,
             }).on('change', function () {
 
-                let startVal =  $('#arrival_date').val();
+                let startVal =  arrivalDate.val();
 
-                $('#departure_date').data('datepicker').setStartDate(startVal);
+                departureDate.data('datepicker').setStartDate(startVal);
             });
 
-            $('#departure_date').datepicker({
+
+            let departureDate  = $('#departure_date').datepicker({
                 format: 'dd-mm-yyyy',
                 autoclose: true,
                 startDate: '+1d',
@@ -157,20 +155,29 @@
                 , changeMonth: true, changeYear: false,
             }).on('change', function () {
 
-                let endVal =  $('#departure_date').val();
+                let endVal =  departureDate.val();
 
-                $('#arrival_date').data('datepicker').setEndDate(endVal);
+                arrivalDate.data('datepicker').setEndDate(endVal);
+            });
+
+            arrivalDate.on('change', function () {
+                if ($(this).val().length > 0) {
+                    departureDate.removeAttr('disabled');
+                } else {
+                    departureDate.val('');
+                    departureDate.attr('disabled','disabled');
+                }
             });
 
             function available(date) {
-                dmy = moment().format('D') + "-" + (moment().format('MM')) + "-" + moment().format('YYYY');
+                dmy = moment().format('D') + "-" + (moment().add(1, 'M').format('MM')) + "-" + moment().format('YYYY');
 
-                if ($.inArray(dmy, replaceEnableDays) != -1) {
-                    return true;
-                } else {
-                    return false;
+                if ($.inArray(dmy, replaceEnableDays) == -1) {
+                    return [true, "","Available"];
+                } else{
+                    return [false,"","unAvailable"];
                 }
             }
-        });
+        }
     </script>
 @endsection
