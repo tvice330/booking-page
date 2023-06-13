@@ -39,6 +39,7 @@ class BookingController extends Controller
      */
     public function createBookingRow(CreateBookingRequest  $request)
     {
+        $request->validated();
         return $this->bookingService->setBookingRow($request);
     }
 
